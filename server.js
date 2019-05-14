@@ -6,10 +6,7 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const passport = require('passport');
 const cors = require('cors');
-const activityRouter = require('./api/activity/router');
-const itineraryRouter = require('./api/itinerary/router');
-const lodgingRouter = require('./api/lodging/router');
-const travelRouter = require('./api/travel/router');
+const packListRouter = require('./api/packList/router');
 const userRouter = require('./api/users/router');
 const { localStrategy, jwtStrategy } = require('./auth/strategies');
 const authRouter = require('./auth');
@@ -22,10 +19,8 @@ app.use(
   })
 );
 
-app.use('/api/activity', activityRouter);
-app.use('/api/itinerary', itineraryRouter);
-app.use('/api/lodging', lodgingRouter);
-app.use('/api/travel', travelRouter);
+
+app.use('/api/packList', packListRouter);
 app.use('/api/users', userRouter);
 app.use('/auth', authRouter);
 mongoose.Promise = global.Promise;

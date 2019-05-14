@@ -6,7 +6,7 @@ const faker = require('faker');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 require('dotenv').config();
-const { Itinerary } = require('../api/itinerary/models');
+const { PackList } = require('../api/packList/models');
 const { Travel } = require('../api/travel/models');
 const { Activity } = require('../api/activity/models');
 const { Lodging } = require('../api/lodging/models');
@@ -88,9 +88,9 @@ function seedTravelData() {
   }); 
 }
 
-function seedItineraryData() {
+function seedPackListData() {
   for (let i = 1; i <= 10; i++) {
-    Itinerary.create({ 
+    PackList.create({ 
       title: faker.random.words(),
       date_leave: faker.date.future(),
       date_return: faker.date.future(),
@@ -129,7 +129,7 @@ function checkDates (dates) {
   dates._timestamp.should.equal(dates.timestamp);
 }
 
-describe('Itinerator API resource: Itinerary', function () {
+describe('Itinerator API resource: PackList', function () {
   const username = faker.random.word(1);
   const password = 'dummyPw1234';
   const email = faker.internet.email();
@@ -163,7 +163,7 @@ describe('Itinerator API resource: Itinerary', function () {
   });
 
   beforeEach(function () {
-    return seedItineraryData();
+    return seedPackListData();
   });
 
   afterEach(function () {
@@ -177,7 +177,7 @@ describe('Itinerator API resource: Itinerary', function () {
 
   describe('GET endpoint', function () {
 
-    it('should return single selected itinerary', function () 
+    it('should return single selected packList', function () 
     {
       const token = jwt.sign(
         {
@@ -193,7 +193,7 @@ describe('Itinerator API resource: Itinerary', function () {
           expiresIn: '7d'
         }
       );
-      return Itinerary.findOne()
+      return PackList.findOne()
         .then( function (res) {
           let result = res;
           return result;
@@ -201,7 +201,7 @@ describe('Itinerator API resource: Itinerary', function () {
         .then( function(result) {
           let id = result._id;
           return chai.request(app)
-            .get(`/api/itinerary/${id}`)
+            .get(`/api/packList/${id}`)
             .set( 'Authorization', `Bearer ${ token }` )
             .then((res) => {
               let _result = res.body;
@@ -229,7 +229,7 @@ describe('Itinerator API resource: Itinerary', function () {
           expiresIn: '7d'
         }
       );
-      return Itinerary.findOne()
+      return PackList.findOne()
         .then( function (res) {
           let result = res.toJSON();
           return result;
@@ -237,7 +237,7 @@ describe('Itinerator API resource: Itinerary', function () {
         .then( function(result) {
           let id = result._id;
           return chai.request(app)
-            .get(`/api/itinerary/${id}`)
+            .get(`/api/packList/${id}`)
             .set( 'Authorization', `Bearer ${ token }` )
             .then( function(res) {
               let _result = res.body;
@@ -256,7 +256,7 @@ describe('Itinerator API resource: Itinerary', function () {
   });
 
   describe('POST endpoint', function () {
-    it('should create a new itinerary and update user record',
+    it('should create a new packList and update user record',
       function () {
 
         const token = jwt.sign(
@@ -282,7 +282,7 @@ describe('Itinerator API resource: Itinerary', function () {
           user: testUser.id
         };
         return chai.request(app)
-          .post('/api/itinerary')
+          .post('/api/packList')
           .set( 'Authorization', `Bearer ${ token }` )
           .send(newEntry)
           .then(function (res) {
@@ -292,7 +292,7 @@ describe('Itinerator API resource: Itinerary', function () {
             _result.title.should.equal(newEntry.title);
             _result.public.should.equal(newEntry.public);
             _result.id.should.not.be.null;
-            return Itinerary.findById(_result.id);
+            return PackList.findById(_result.id);
           })
           .then(function (entry) {
             entry.title.should.equal(newEntry.title);
@@ -306,7 +306,7 @@ describe('Itinerator API resource: Itinerary', function () {
   });
 
   describe('PUT endpoint', function () {
-    it('should update selected itinerary', function () {
+    it('should update selected packList', function () {
       const token = jwt.sign(
         {
           user: {
@@ -330,17 +330,17 @@ describe('Itinerator API resource: Itinerary', function () {
         user: testUser.id,
         timestamp: faker.date.recent(0)
       };
-      return Itinerary.findOne()
+      return PackList.findOne()
         .then( function(result) {
           updateData.id = result.id;
           return chai.request(app)
-            .put(`/api/itinerary/${updateData.id}`)
+            .put(`/api/packList/${updateData.id}`)
             .set( 'Authorization', `Bearer ${ token }` )
             .send(updateData);
         })
         .then(res => {
           res.should.have.status(200);
-          return Itinerary.findById(updateData.id);
+          return PackList.findById(updateData.id);
         })
         .then( function(_result) {
           const dates = {_date_leave: _result.date_leave, _date_return: _result.date_return, _timestamp: _result.timestamp, date_leave: updateData.date_leave, date_return: updateData.date_return, timestamp: updateData.timestamp};
@@ -351,7 +351,7 @@ describe('Itinerator API resource: Itinerary', function () {
     });
   });
   describe('DELETE endpoint', function () {
-    it('should delete selected itinerary and update user record', function () {
+    it('should delete selected packList and update user record', function () {
     
       const token = jwt.sign(
         {
@@ -370,17 +370,17 @@ describe('Itinerator API resource: Itinerary', function () {
     
       let entry;
     
-      return Itinerary.findOne()
+      return PackList.findOne()
         .then(post => {
           entry = post;
           return chai.request(app)
-            .delete(`/api/itinerary/${entry.id}`)
+            .delete(`/api/packList/${entry.id}`)
             .set( 'Authorization', `Bearer ${ token }` )
             .send({id: post.id});
         })
         .then( function(res) {
           res.should.have.status(204);
-          return Itinerary.findById(entry.id);
+          return PackList.findById(entry.id);
         })
         .then(post => {
           should.not.exist(post);

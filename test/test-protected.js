@@ -10,7 +10,7 @@ const {app, runServer, closeServer} = require('../server');
 const {User} = require('../api/users/models');
 const {JWT_SECRET} = require('../config');
 const { TEST_DATABASE_URL } = require('../config');
-const { Itinerary } = require('../api/itinerary/models');
+const { PackList } = require('../api/packList/models');
 const { Travel } = require('../api/travel/models');
 const { Activity } = require('../api/activity/models');
 const { Lodging } = require('../api/lodging/models');
@@ -67,8 +67,8 @@ function seedTravelData() {
   }); 
 }
   
-function seedItineraryData() {
-  Itinerary.create({ 
+function seedPackListData() {
+  PackList.create({ 
     title: faker.random.words(),
     date_leave: faker.date.future(),
     date_return: faker.date.future(),
@@ -108,7 +108,7 @@ describe('Protected endpoint', function() {
   });
 
   beforeEach(function () {
-    return seedItineraryData();
+    return seedPackListData();
   });
 
   beforeEach(function() {
@@ -131,8 +131,8 @@ describe('Protected endpoint', function() {
 
 
   describe('get requests', function() {
-    it('Should reject requests with no credentials: itinerary', function() {
-      return Itinerary.findOne()
+    it('Should reject requests with no credentials: packList', function() {
+      return PackList.findOne()
         .then( function (res) {
           let result = res;
           return result;
@@ -140,7 +140,7 @@ describe('Protected endpoint', function() {
         .then( function(result) {
           let id = result._id;
           return chai.request(app)
-            .get(`/api/itinerary/${id}`)
+            .get(`/api/packList/${id}`)
             .then((res) => {
               expect(res).to.have.status(401);
             })
@@ -228,7 +228,7 @@ describe('Protected endpoint', function() {
         }
       );
 
-      return Itinerary.findOne()
+      return PackList.findOne()
         .then( function (res) {
           let result = res;
           return result;
@@ -236,7 +236,7 @@ describe('Protected endpoint', function() {
         .then( function(result) {
           let id = result._id;
           return chai.request(app)
-            .get(`/api/itinerary/${id}`)
+            .get(`/api/packList/${id}`)
             .set('Authorization', `Bearer ${token}`)
             .then((res) => {
               expect(res).to.have.status(401);
@@ -264,7 +264,7 @@ describe('Protected endpoint', function() {
         }
       );
 
-      return Itinerary.findOne()
+      return PackList.findOne()
         .then( function (res) {
           let result = res;
           return result;
@@ -272,7 +272,7 @@ describe('Protected endpoint', function() {
         .then( function(result) {
           let id = result._id;
           return chai.request(app)
-            .get(`/api/itinerary/${id}`)
+            .get(`/api/packList/${id}`)
             .then((res) => {
               expect(res).to.have.status(401);
             })

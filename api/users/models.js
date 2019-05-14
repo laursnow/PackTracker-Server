@@ -23,7 +23,7 @@ const UserSchema = mongoose.Schema({
     unique: true,
     required: true,
   },
-  author_of: [{type: mongoose.Schema.Types.ObjectId, ref: 'Itinerary', autopopulate: true}]
+  author_of: [{type: mongoose.Schema.Types.ObjectId, ref: 'PackList', autopopulate: true}]
 },
 { collection: 'users'});
 
