@@ -4,7 +4,7 @@ node_js: node
 deploy:
   provider: heroku
   api_key:
-    secure: 
-  app: 
+    secure: JvICE6jA9+pJLzg+VvBz+9fGMI3/A4PNysM1vdOyBLFNN6J7p6oPk1TjpLxd+UoiEOfOpVk7lXobB58dAKkYLSWA0odblbw1DkS9ZQc9oTyA77sqBLd1gJz0uwsjI1foUEG4qaahzULAmOF8gppSzuGxqcpcbqz6PKgIH2mvqMXKz+BOTnHAw0iAlwGqHi/76a/1NaYAnQmDJ2N3s0CH9OWN/Gl8EWxwjCUC/77ejbH/aHElZO0O+uh/gwJgRrB8ud8c9rHmS2jVy5JbIAVuvpfXdsXt1A4HGLInrF/yOawgqYwFsatl+Vlx60zVKnzWKOAHzvGeE2J8h8sAzUmIo3ueQYI0Xh34b9KkThVHzuKkWEWVgw8ZFrsT2CQN/o2jCqKis7VRyN5Vp+OhIgkOzVQKgVMPVx5bCv1yOA9O41XsIROTr/0QltOD5UeGL+0LiQFezLEUWw2jXcJyWRbwasWz270MEiQUU3gXrGxeMjQaDWIX+U0Vm4jQLuxTNr4f+sv71XmJn+RAghv7EGbjBBN0SqeG7URrhrLwd89k0J8rE9IyvvTbe5JnGZAYNAOScfzQ8kqnBueSeLbGQNB7pI83MaeFxf3ohPwGiowhPZsCyowSBVvorQoCMPW6/I1LyCxTflxo06lyGn/BwaD1o293+mP0eySCtpgQqNfY+pQ=
+  app: https://packtracker-app.herokuapp.com/
   on:
-    repo: 
+    repo: laursnow/PackTracker-Server
