@@ -30,16 +30,17 @@ packListRouter.post('/', jwtAuth, (req, res) => {
     title: req.body.title,
     date_leave: req.body.date_leave,
     date_return: req.body.date_return,
-    list: req.body.list,
+    pack: req.body.pack,
     timestamp: req.body.timestamp,
     user: req.user.id
   })
     .then(item => {
       res.status(201).json(item.serialize());
-      console.log(req.user.username);
       return User.findOneAndUpdate({username: req.user.username}, { $push: {author_of: item.id}});
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      res.status(500).json({ error: 'Something went wrong' });
+    });
 });
 
 packListRouter.get('/db/:id', jwtAuth, (req, res) => {
@@ -48,8 +49,11 @@ packListRouter.get('/db/:id', jwtAuth, (req, res) => {
     .then(item => {
       let snippets = item.map(snippet => snippet.author_of);
       res.status(200).json(snippets);
+
     }) 
-    .catch(err => console.log('err /db/:id'));
+    .catch(err => {
+      res.status(500).json({ error: 'Something went wrong' });
+    });
 });
 
 packListRouter.get('/:id', jwtAuth, (req, res) => {
@@ -58,7 +62,9 @@ packListRouter.get('/:id', jwtAuth, (req, res) => {
     .then(item => {
       res.status(200).json(item.serialize());
     })
-    .catch(err => console.log('err'));
+    .catch(err => {
+      res.status(500).json({ error: 'Something went wrong' });
+    });
 });
 
 packListRouter.put('/:id', jwtAuth, (req, res) => {
@@ -66,12 +72,14 @@ packListRouter.put('/:id', jwtAuth, (req, res) => {
     title: req.body.title,
     date_leave: req.body.date_leave,
     date_return: req.body.date_return,
-    list: req.body.list,
-    timestamp: req.body.timestamp,
+    pack: req.body.pack,
+    timestamp: req.body.timestamp
   };
   PackList.updateOne({ _id: req.params.id}, { $set: updated }, { new: true })
     .then(item => res.status(200).json(updated))
-    .catch(err => console.log(err));
+    .catch(err => {
+      res.status(500).json({ error: 'Something went wrong' });
+    });
 });
 
 packListRouter.delete('/:id', jwtAuth, (req, res) => {

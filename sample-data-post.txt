@@ -1,0 +1,30 @@
+
+{
+	"title": "Brooklyn",
+    "date_leave": "06/15/2019",
+    "date_return": "06/16/2019",
+    "list": [{"list_item" :"Erin's DVD"}, {"list_item": "Pictures"}, {"list_item": "Gym clothes"}]
+}
+
+{
+	"title": "Chicago",
+    "date_leave": "06/01/2019",
+    "date_return": "06/03/2019",
+    "list": [{"list_item" :"Wallet"}, {"list_item": "Sunglasses"}, {"list_item": "Towel"}, {"list_item": "Bathing Suit"}, {"list_item": "Sandals"}]
+}
+
+
+{
+	"title": "Amsterdam, Netherlands & Brussels, Belgium",
+    "date_leave": "01/15/2020",
+    "date_return": "01/21/2020",
+    "list": [{"list_item" :"Passport"}, {"list_item": "Camera"}, {"list_item": "Phone charger"}, {"list_item": "Book for plane ride"}, {"list_item": "Headphones"}, {"list_item": "Scarf"}, {"list_item": "Gloves"}]
+}
+
+
+{
+	"title": "Toronto",
+    "date_leave": "08/02/2019",
+    "date_return": "08/16/2019",
+    "list": [{"list_item" :"Wallet"}, {"list_item": "Jacket"}, {"list_item": "Passport"}]
+}

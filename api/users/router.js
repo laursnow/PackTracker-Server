@@ -5,6 +5,11 @@ const userRouter = express.Router();
 const jsonParser = bodyParser.json();
 const {User} = require('./models');
 
+function validateEmail(email) {
+  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
+
 userRouter.post('/', jsonParser, (req, res) => {
   const requiredFields = ['username', 'password', 'email'];
   const missingField = requiredFields.find(field => !(field in req.body));
@@ -31,6 +36,7 @@ userRouter.post('/', jsonParser, (req, res) => {
     });
   }
 
+
   let { username, password, email } = req.body;
 
   if (password.length < 8 || password.length > 72) {
@@ -40,6 +46,13 @@ userRouter.post('/', jsonParser, (req, res) => {
       message: 'Password must be between 8 and 72 characters',
     });
   } 
+  if (!validateEmail(email)) {
+    return res.status(422).json({
+      code: 422,
+      reason: 'ValidationError',
+      message: 'Invalid e-mail address'
+    });
+  }
 
   return User.find({username})
     .count()

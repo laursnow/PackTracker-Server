@@ -2,14 +2,14 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 require('dotenv').config();
-const {app, runServer, closeServer} = require('../../server');
-const {User} = require('../../api/users/models');
-const { TEST_DATABASE_URL } = require('../../config');
+const {app, runServer, closeServer} = require('../server');
+const {User} = require('../api/users/models');
+const { TEST_DATABASE_URL } = require('../config');
 const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-describe.only('/user endpoints', function() {
+describe('/user endpoints', function() {
   const username = 'exampleuser';
   const password = 'examplePass';
   const email = 'email@email.com';
@@ -68,44 +68,7 @@ describe.only('/user endpoints', function() {
             }
           });
       });
-      it('Should reject users with missing password', function() {
-        return chai
-          .request(app)
-          .post('/api/users')
-          .send({
-            username,
-            email
-          })
-          .then((res) => {
-            expect(res).to.have.status(422);
-            expect(res.body.reason).to.equal('ValidationError');
-            expect(res.body.message).to.equal('Missing field');
-            expect(res.body.location).to.equal('password');
-          })
-          .catch(err => {
-            if (err instanceof chai.AssertionError) {
-              throw err;
-            }
-          });
-      });
-      it('Should reject users with username under 3 chars', function() {
-        return chai
-          .request(app)
-          .post('/api/users')
-          .send({
-            username: 'ab',
-            password,
-            email
-          })
-          .then((res) => {
-            expect(res).to.have.status(412);
-          })
-          .catch(err => {
-            if (err instanceof chai.AssertionError) {
-              throw err;
-            }
-          });
-      });
+     
       it('Should reject users with password under 8 chars', function() {
         return chai
           .request(app)
@@ -135,7 +98,7 @@ describe.only('/user endpoints', function() {
             email: 'email'
           })
           .then((res) => {
-            expect(res).to.have.status(412);
+            expect(res).to.have.status(422);
           })
           .catch(err => {
             if (err instanceof chai.AssertionError) {
@@ -194,7 +157,7 @@ describe.only('/user endpoints', function() {
           email
         })
           .then(() =>
-            chai.request(app).post('/users').send({
+            chai.request(app).post('/api/users').send({
               username,
               password,
               email: 'email2@email.com'
@@ -218,7 +181,7 @@ describe.only('/user endpoints', function() {
           email
         })
           .then(() =>
-            chai.request(app).post('/users').send({
+            chai.request(app).post('/api/users').send({
               username,
               password,
               email

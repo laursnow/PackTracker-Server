@@ -4,10 +4,13 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 const packListSchema = mongoose.Schema({
-  title: { type: String  },
+  title: { type: String },
   date_leave: { type: Date },
   date_return: { type: Date },
-  list: [{ type: String }],
+  pack: [{
+    pack_item: { type: String }, 
+    complete: { type: Boolean, default: false } 
+  }],
   timestamp: { type: Date, default: Date.now },
   user: {type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true}
 },
@@ -19,7 +22,7 @@ packListSchema.methods.serialize = function() {
     title: this.title,
     date_leave: this.date_leave,
     date_return: this.date_return,
-    list: this.list,
+    pack: this.pack,
     timestamp: this.timestamp,
     user: this.user
   };
