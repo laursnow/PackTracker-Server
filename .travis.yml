@@ -4,6 +4,6 @@ deploy:
   provider: heroku
   api_key:
     secure: bed0a6e1-0e53-4ef7-90bc-f55c0638b1bd
-  app: packtracker-app
+  app: packtracker-server
   on:
     repo: laursnow/PackTracker-Server
