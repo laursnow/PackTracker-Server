@@ -50,7 +50,8 @@ userRouter.post('/', jsonParser, (req, res) => {
     return res.status(422).json({
       code: 422,
       reason: 'ValidationError',
-      message: 'Invalid e-mail address'
+      message: 'Invalid e-mail address',
+      location: 'email'
     });
   }
 
@@ -74,7 +75,7 @@ userRouter.post('/', jsonParser, (req, res) => {
               code: 422,
               reason: 'ValidationError',
               message: 'Email already taken',
-              location: 'username'
+              location: 'email'
             });
           }
           return User.hashPassword(password)
