@@ -11,7 +11,6 @@ const bcrypt = require('bcryptjs');
 
 const localStrategy = new LocalStrategy((username, password, callback) => {
   let user;
-  console.log(username, password);
   User.findOne({ username: username })
     .then(_user => {
       user = _user;
@@ -26,7 +25,6 @@ const localStrategy = new LocalStrategy((username, password, callback) => {
       return user.validatePassword(password);
     })
     .then(isValid => {
-      console.log(isValid);
       if (!isValid) {
         return Promise.reject({
           reason: 'LoginError',
