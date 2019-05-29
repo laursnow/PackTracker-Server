@@ -74,7 +74,7 @@ userRouter.post('/', jsonParser, (req, res) => {
               code: 422,
               reason: 'ValidationError',
               message: 'Email already taken',
-              location: 'email'
+              location: 'username'
             });
           }
           return User.hashPassword(password)
