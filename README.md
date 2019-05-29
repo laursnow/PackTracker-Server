@@ -1,5 +1,7 @@
 # PackTracker Server
 
+## **[Please see PackTracker client github for further documentation.](https://github.com/laursnow/PackTracker-Client "PackTracker Client")**
+
 ## Application Demo
 **[Live Application](https://packtracker-app.herokuapp.com/ "packTracker")**
 
@@ -10,6 +12,8 @@ Password: samplepassword
 
 ## Description
 
- A simple web app for tracking trip packing. This repositoy contains the backend for the webapp.
+ A simple web app for tracking trip packing. This repository contains the backend for the web application.
 
-## **[Please see PackTracker client github for further documentation.](https://github.com/laursnow/PackTracker-Client "PackTracker Client")**
+ ## Technology
+
+This application utilizes React, Redux, Javascript, CSS, node.js, Express, Passport, Mocha/Chai (server unit testing), Enzyme/Jest (client unit testing) and MongoDB.
